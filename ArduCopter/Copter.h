@@ -941,6 +941,13 @@ private:
 #else
     ModeStabilize mode_stabilize;
 #endif
+//--LIO-- 18/12/2020 ------------------------
+#if Mode_ALTIPITCH_ENABLED == ENABLED
+#if FRAME_CONFIG == HELI_FRAME
+    Mode_AltiPitch_Heli mode_altiPitch
+#else
+    ModeAltiPitch mode_altiPitch;
+//  -----------------------------------------
 #if MODE_SPORT_ENABLED == ENABLED
     ModeSport mode_sport;
 #endif

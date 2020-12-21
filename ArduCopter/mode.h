@@ -36,6 +36,7 @@ public:
         ZIGZAG    =    24,  // ZIGZAG mode is able to fly in a zigzag manner with predefined point A and point B
         SYSTEMID  =    25,  // System ID mode produces automated system identification signals in the controllers
         AUTOROTATE =   26,  // Autonomous autorotation
+        ALTIPITCH   =   27,  // Altitude maintained from pitch angle. Roll also controlled by AC_Attitudecontrol. Coll and Yaw not considered. 
     };
 
     // constructor
@@ -1591,6 +1592,46 @@ private:
 
     //--- Internal functions ---
     void warning_message(uint8_t message_n);    //Handles output messages to the terminal
+
+};
+#endif
+
+
+class ModeAltiPitch : public Mode {
+
+public:
+    // inherit constructor
+    using Mode::Mode;
+
+    virtual void run() override;
+
+    bool requires_GPS() const override { return false; }
+    bool has_manual_throttle() const override { return false; }
+    bool allows_arming(bool from_gcs) const override { return true; };
+    bool is_autopilot() const override { return false; }
+
+protected:
+
+    const char *name() const override { return "AltiPitch"; }
+    const char *name4() const override { return "APITCH"; }
+
+private:
+
+};
+
+#if FRAME_CONFIG == HELI_FRAME
+class ModeAltiPitch_Heli : public ModeAltiPitch {
+
+public:
+    // inherit constructor
+    using ModeStabilize::Mode;
+
+    bool init(bool ignore_checks) override;
+    void run() override;
+
+protected:
+
+private:
 
 };
 #endif

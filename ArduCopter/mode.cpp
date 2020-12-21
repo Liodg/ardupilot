@@ -168,6 +168,12 @@ Mode *Copter::mode_from_mode_num(const Mode::Number mode)
             ret = &mode_autorotate;
             break;
 #endif
+#if MODE_ALTIPITCH_ENABLED == ENABLED
+        case Mode::Number::ALTIPITCH:
+            ret = &mode_altiPitch;
+            break;
+#endif
+
 
         default:
             break;
